@@ -29,6 +29,7 @@ def main():
         if ing['networks']:
             ing_desired_whitelist = []
             for network_name in ing['networks']:
+                network_name = network_name.strip()
                 ing_desired_whitelist.extend(networks[network_name] if network_name in networks else [])
         else:
             ing_desired_whitelist = ["0.0.0.0/0"]
