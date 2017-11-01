@@ -1,9 +1,9 @@
 # k8s-ingress-networks
 
-[![Build Status](https://travis-ci.org/infolinks/k8s-ingress-networks.svg?branch=master)](https://travis-ci.org/infolinks/k8s-ingress-networks)
+[![Build status](https://badge.buildkite.com/6cf1a63094e63e217070a9ed4bbdebf744984160cdd34d4f05.svg)](https://buildkite.com/infolinks/k8s-ingress-networks)
 
 Container for continually ensuring that a Kubernetes Ingress resources is restricted only to a set of whitelisted
-networks (CIDR ranges) based on a list of named networks. 
+networks (CIDR ranges) based on a list of named networks.
 
 This container will:
 
@@ -18,7 +18,7 @@ between network names and CIDR ranges.
 
 When running externally to a Kubernetes cluster, make sure that you configure `kubectl` to properly access your cluster.
 
-If this container is running inside a Kubernetes cluster, you just need to make sure the `Pod` running this container 
+If this container is running inside a Kubernetes cluster, you just need to make sure the `Pod` running this container
 has the RBAC permissions to use `kubectl`.
 
 ## Contributions
