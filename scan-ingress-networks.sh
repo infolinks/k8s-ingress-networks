@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 
-CONFIG_MAP_NAMESPACE=${CONFIG_MAP_NAMESPACE}
-if [[ -z "${CONFIG_MAP_NAMESPACE}" ]]; then
-    echo "Environment variable 'CONFIG_MAP_NAMESPACE' not defined" >&2
-    exit 1
+# small IntelliJ hack to prevent warning on non-existing variables
+if [[ "THIS_WILL_NEVER_BE_TRUE" == "true" ]]; then
+    CONFIG_MAP_NAMESPACE=${CONFIG_MAP_NAMESPACE}
+    CONFIG_MAP_NAME=${CONFIG_MAP_NAME}
 fi
 
-CONFIG_MAP_NAME=${CONFIG_MAP_NAME}
-if [[ -z "${CONFIG_MAP_NAME}" ]]; then
+# validate required parameters
+if [[ -z "${CONFIG_MAP_NAMESPACE}" ]]; then
+    echo "environment variable 'CONFIG_MAP_NAMESPACE' not defined" >&2
+    exit 1
+elif [[ -z "${CONFIG_MAP_NAME}" ]]; then
     echo "Environment variable 'CONFIG_MAP_NAME' not defined" >&2
     exit 1
 fi
