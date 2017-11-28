@@ -5,5 +5,5 @@ steps:
       - gcloud docker -- pull gcr.io/infolinks-gcr/k8s-ingress-networks:${BUILDKITE_COMMIT}
       - gcloud docker -- tag gcr.io/infolinks-gcr/k8s-ingress-networks:${BUILDKITE_COMMIT} infolinks/k8s-ingress-networks:${VERSION}
       - gcloud docker -- push infolinks/k8s-ingress-networks:${VERSION}
-      - gcloud docker -- tag gcr.io/infolinks-gcr/k8s-ingress-networks:${BUILDKITE_COMMIT} infolinks/k8s-ingress-networks:latest
+      - gcloud docker -- tag infolinks/k8s-ingress-networks:${VERSION} infolinks/k8s-ingress-networks:latest
       - gcloud docker -- push infolinks/k8s-ingress-networks:latest
