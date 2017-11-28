@@ -11,7 +11,7 @@ WHITELIST_ANN_NAME = 'ingress.kubernetes.io/whitelist-source-range'
 
 def main():
     # read JSON from stdin
-    context = json.loads('\n'.join(sys.stdin.readlines()))
+    context = json.loads(sys.stdin.read())
 
     # iterate ingresses, and for each one, construct the list of whitelisted CIDRs (from its whitelisted networks)
     # then annotate the ingress to whitelist only the CIDRs collected from those whitelisted networks
