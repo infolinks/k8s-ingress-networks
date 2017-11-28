@@ -18,6 +18,10 @@ fi
 while true; do
     NETWORKS=$(kubectl get "configmap/${CONFIG_MAP_NAME}" -n "${CONFIG_MAP_NAMESPACE}" --output=json | jq '.data | map_values(. | split(","))')
     if [[ $? != 0 ]]; then
+        echo "Failed fetching networks" >&2
+        exit 1
+    elif [[ -z "${NETWORKS}" ]]; then
+        echo "Empty response received while fetching networks" >&2
         exit 1
     fi
 
