@@ -1,4 +1,5 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
+
 import json
 import subprocess
 
@@ -10,12 +11,7 @@ WHITELIST_ANN_NAME = 'ingress.kubernetes.io/whitelist-source-range'
 
 def main():
     # read JSON from stdin
-    try:
-        context = json.loads('\n'.join(sys.stdin.readlines()))
-    except:
-        sys.stderr.write("Failed reading JSON from stdin!\n")
-        sys.stderr.flush()
-        raise
+    context = json.loads('\n'.join(sys.stdin.readlines()))
 
     # iterate ingresses, and for each one, construct the list of whitelisted CIDRs (from its whitelisted networks)
     # then annotate the ingress to whitelist only the CIDRs collected from those whitelisted networks
@@ -36,16 +32,13 @@ def main():
 
         # if actual & desired whitelists are different, update ingress
         if ing_actual_whitelist != ing_desired_whitelist:
-            print "Ingress '%s/%s' has differing actual & desired CIDR whitelist:" % (ing_namespace, ing_name)
-            print "   Actual: %s" % ing_actual_whitelist
-            print "  Desired: %s" % ing_desired_whitelist
+            print(f"Ingress '{ing_namespace}/{ing_name}' has differing actual & desired CIDR whitelist:")
+            print(f"   Actual: {ing_actual_whitelist}")
+            print(f"  Desired: {ing_desired_whitelist}")
             whitelist_string = ','.join(ing_desired_whitelist)
-            subprocess.check_call(
-                "kubectl annotate --namespace=\"%s\" ingress/%s --overwrite %s=\"%s\"" % (ing_namespace,
-                                                                                          ing_name,
-                                                                                          WHITELIST_ANN_NAME,
-                                                                                          whitelist_string),
-                shell=True)
+            subprocess.check_call(f"kubectl annotate --namespace=\"{ing_namespace}\" ingress/{ing_name} "
+                                  f"                 --overwrite {WHITELIST_ANN_NAME}=\"{whitelist_string}\"",
+                                  shell=True)
 
 
 if __name__ == "__main__":
